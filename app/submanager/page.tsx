@@ -4,7 +4,13 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useState, Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import {
+	Dialog,
+	DialogPanel,
+	DialogTitle,
+	Transition,
+	TransitionChild,
+} from "@headlessui/react";
 
 interface Subscription {
 	id: number;
@@ -121,13 +127,17 @@ function SubscriptionManager() {
 			</div>
 
 			{selectedSubscription && (
-				<Transition appear show={!!selectedSubscription} as={Fragment}>
+				<Transition
+					appear
+					show={!!selectedSubscription}
+					as={Fragment}
+				>
 					<Dialog
 						as='div'
 						className='relative z-10'
 						onClose={() => setSelectedSubscription(null)}
 					>
-						<Transition.Child
+						<TransitionChild
 							as={Fragment}
 							enter='ease-out duration-300'
 							enterFrom='opacity-0'
@@ -136,12 +146,12 @@ function SubscriptionManager() {
 							leaveFrom='opacity-100'
 							leaveTo='opacity-0'
 						>
-							<div className='fixed inset-0 bg-black bg-opacity-25' />
-						</Transition.Child>
+							<div className='fixed inset-0 bg-black/10 ' />
+						</TransitionChild>
 
 						<div className='fixed inset-0 overflow-y-auto'>
 							<div className='flex min-h-full items-center justify-center p-4 text-center'>
-								<Transition.Child
+								<TransitionChild
 									as={Fragment}
 									enter='ease-out duration-300'
 									enterFrom='opacity-0 scale-95'
@@ -150,13 +160,13 @@ function SubscriptionManager() {
 									leaveFrom='opacity-100 scale-100'
 									leaveTo='opacity-0 scale-95'
 								>
-									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-										<Dialog.Title
+									<DialogPanel className='w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all'>
+										<DialogTitle
 											as='h3'
 											className='text-lg font-medium leading-6 text-gray-900'
 										>
 											Edit Subscription
-										</Dialog.Title>
+										</DialogTitle>
 										<div className='mt-2'>
 											<input
 												type='text'
@@ -196,21 +206,23 @@ function SubscriptionManager() {
 										<div className='mt-4 flex justify-between'>
 											<button
 												type='button'
-												className='bg-green-500 text-white p-2 rounded-md shadow-md hover:bg-green-600 w-[48%]'
+												className='bg-green-500 text-white p-2 rounded-md shadow-sm hover:bg-green-600 w-[48%]'
 												onClick={() => updateSubscription(selectedSubscription)}
 											>
 												Save
 											</button>
 											<button
 												type='button'
-												className='bg-red-500 text-white p-2 rounded-md shadow-md hover:bg-red-600 w-[48%]'
-												onClick={() => deleteSubscription(selectedSubscription.id)}
+												className='bg-red-500 text-white p-2 rounded-md shadow-sm hover:bg-red-600 w-[48%]'
+												onClick={() =>
+													deleteSubscription(selectedSubscription.id)
+												}
 											>
 												Delete
 											</button>
 										</div>
-									</Dialog.Panel>
-								</Transition.Child>
+									</DialogPanel>
+								</TransitionChild>
 							</div>
 						</div>
 					</Dialog>
