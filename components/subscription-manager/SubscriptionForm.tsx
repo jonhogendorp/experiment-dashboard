@@ -3,11 +3,13 @@ interface SubscriptionFormProps {
 		name: string;
 		price: string;
 		renewalDate: string;
+		category?: string; // Optional category field
 	};
 	setNewSubscription: (subscription: {
 		name: string;
 		price: string;
 		renewalDate: string;
+		category?: string; // Optional category field
 	}) => void;
 	addSubscription: () => void;
 }
@@ -45,6 +47,18 @@ export default function SubscriptionForm({
 					setNewSubscription({
 						...newSubscription,
 						renewalDate: e.target.value,
+					})
+				}
+				className='border p-2 mr-2 rounded-md shadow-sm'
+			/>
+			<input
+				type='text'
+				placeholder='Category (optional)'
+				value={newSubscription.category}
+				onChange={(e) =>
+					setNewSubscription({
+						...newSubscription,
+						category: e.target.value,
 					})
 				}
 				className='border p-2 mr-2 rounded-md shadow-sm'

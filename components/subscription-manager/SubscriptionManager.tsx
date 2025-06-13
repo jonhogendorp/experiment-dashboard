@@ -8,18 +8,58 @@ export interface Subscription {
 	name: string;
 	price: number;
 	renewalDate: string;
+	category?: string; // Optional category field
 }
 
 export default function SubscriptionManager() {
 	const [subscriptions, setSubscriptions] = useState<Subscription[]>([
-		{ id: 1, name: "Netflix", price: 15.99, renewalDate: "2025-06-15" },
-		{ id: 2, name: "Spotify", price: 9.99, renewalDate: "2025-06-20" },
+		{
+			id: 1,
+			name: "Netflix",
+			price: 15.99,
+			renewalDate: "2025-06-15",
+			category: "Streaming",
+		},
+		{
+			id: 2,
+			name: "Spotify",
+			price: 9.99,
+			renewalDate: "2025-06-20",
+			category: "Music",
+		},
+		{
+			id: 3,
+			name: "Todoist",
+			price: 3.99,
+			renewalDate: "2025-06-25",
+			category: "Productivity",
+		},
+		{
+			id: 4,
+			name: "Adobe Creative Cloud",
+			price: 52.99,
+			renewalDate: "2025-07-01",
+			category: "Other",
+		},
+		{
+			id: 5,
+			name: "Amazon Prime",
+			price: 14.99,
+			renewalDate: "2025-07-05",
+			category: "Streaming",
+		},
 	]);
 
-	const [newSubscription, setNewSubscription] = useState({
+	const [newSubscription, setNewSubscription] = useState<{
+		name: string;
+		price: string;
+		renewalDate: string;
+		category?: string;
+	}>({
 		name: "",
 		price: "",
 		renewalDate: "",
+		category: "", // Optional field for category
 	});
 
 	const [selectedSubscription, setSelectedSubscription] =
@@ -41,9 +81,10 @@ export default function SubscriptionManager() {
 				name: newSubscription.name,
 				price: Number(newSubscription.price),
 				renewalDate: newSubscription.renewalDate,
+				category: newSubscription.category || "", // Use empty string if no category
 			},
 		]);
-		setNewSubscription({ name: "", price: "", renewalDate: "" });
+		setNewSubscription({ name: "", price: "", renewalDate: "", category: "" }); // Reset form
 	};
 
 	const updateSubscription = (updatedSubscription: Subscription) => {
