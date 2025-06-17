@@ -101,14 +101,14 @@ export default function SubscriptionDialog({
 								<div className='mt-4 flex justify-between'>
 									<button
 										type='button'
-										className='bg-green-500 text-white p-2 rounded-md shadow-sm hover:bg-green-600 w-[48%]'
+										className='bg-blue-500 text-white p-2 rounded-md shadow-sm hover:bg-blue-600 w-[48%]'
 										onClick={() => updateSubscription(selectedSubscription)}
 									>
 										Save
 									</button>
 									<button
 										type='button'
-										className='bg-red-500 text-white p-2 rounded-md shadow-sm hover:bg-red-600 w-[48%]'
+										className='bg-slate-50 border border-slate-700 border-solid text-slate-800 p-2 rounded-md shadow-sm hover:bg-red-600 w-[48%]'
 										onClick={() => deleteSubscription(selectedSubscription.id)}
 									>
 										Delete
