@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery, useMutation, gql } from "@apollo/client";
 import SubscriptionList from "./SubscriptionList";
 import SubscriptionForm from "./SubscriptionForm";
 import SubscriptionDialog from "./SubscriptionDialog";
@@ -11,44 +12,81 @@ export interface Subscription {
 	category?: string; // Optional category field
 }
 
+const GET_SUBSCRIPTIONS = gql`
+	query GetSubscriptions {
+		subscriptions {
+			id
+			name
+			price
+			renewalDate
+			category
+		}
+	}
+`;
+
+const ADD_SUBSCRIPTION = gql`
+	mutation AddSubscription(
+		$name: String!
+		$price: Float!
+		$renewalDate: String!
+		$category: String
+	) {
+		addSubscription(
+			name: $name
+			price: $price
+			renewalDate: $renewalDate
+			category: $category
+		) {
+			id
+			name
+			price
+			renewalDate
+			category
+		}
+	}
+`;
+
+const UPDATE_SUBSCRIPTION = gql`
+	mutation UpdateSubscription(
+		$id: Int!
+		$name: String
+		$price: Float
+		$renewalDate: String
+		$category: String
+	) {
+		updateSubscription(
+			id: $id
+			name: $name
+			price: $price
+			renewalDate: $renewalDate
+			category: $category
+		) {
+			id
+			name
+			price
+			renewalDate
+			category
+		}
+	}
+`;
+
+const DELETE_SUBSCRIPTION = gql`
+	mutation DeleteSubscription($id: Int!) {
+		deleteSubscription(id: $id)
+	}
+`;
+
 export default function SubscriptionManager() {
-	const [subscriptions, setSubscriptions] = useState<Subscription[]>([
-		{
-			id: 1,
-			name: "Netflix",
-			price: 15.99,
-			renewalDate: "2025-06-15",
-			category: "Streaming",
-		},
-		{
-			id: 2,
-			name: "Spotify",
-			price: 9.99,
-			renewalDate: "2025-06-20",
-			category: "Music",
-		},
-		{
-			id: 3,
-			name: "Todoist",
-			price: 3.99,
-			renewalDate: "2025-06-25",
-			category: "Productivity",
-		},
-		{
-			id: 4,
-			name: "Adobe Creative Cloud",
-			price: 52.99,
-			renewalDate: "2025-07-01",
-			category: "Other",
-		},
-		{
-			id: 5,
-			name: "Amazon Prime",
-			price: 14.99,
-			renewalDate: "2025-07-05",
-			category: "Streaming",
-		},
-	]);
+	const { data, loading, error, refetch } = useQuery(GET_SUBSCRIPTIONS);
+	const [addSubscriptionMutation] = useMutation(ADD_SUBSCRIPTION, {
+		onCompleted: () => refetch(),
+	});
+	const [updateSubscriptionMutation] = useMutation(UPDATE_SUBSCRIPTION, {
+		onCompleted: () => refetch(),
+	});
+	const [deleteSubscriptionMutation] = useMutation(DELETE_SUBSCRIPTION, {
+		onCompleted: () => refetch(),
+	});
 
 	const [newSubscription, setNewSubscription] = useState<{
 		name: string;
@@ -65,6 +103,7 @@ export default function SubscriptionManager() {
 	const [selectedSubscription, setSelectedSubscription] =
 		useState<Subscription | null>(null);
 
+	// Replace local addSubscription with GraphQL mutation
 	const addSubscription = () => {
 		if (
 			!newSubscription.name ||
@@ -74,32 +113,38 @@ export default function SubscriptionManager() {
 			alert("All fields are required.");
 			return;
 		}
-		setSubscriptions([
-			...subscriptions,
-			{
-				id: subscriptions.length + 1,
+		addSubscriptionMutation({
+			variables: {
 				name: newSubscription.name,
 				price: Number(newSubscription.price),
 				renewalDate: newSubscription.renewalDate,
-				category: newSubscription.category || "", // Use empty string if no category
+				category: newSubscription.category || "",
 			},
-		]);
+		});
 		setNewSubscription({ name: "", price: "", renewalDate: "", category: "" }); // Reset form
 	};
 
+	// Replace local updateSubscription with GraphQL mutation
 	const updateSubscription = (updatedSubscription: Subscription) => {
-		setSubscriptions(
-			subscriptions.map((sub) =>
-				sub.id === updatedSubscription.id ? updatedSubscription : sub
-			)
-		);
+		updateSubscriptionMutation({
+			variables: {
+				id: updatedSubscription.id,
+				name: updatedSubscription.name,
+				price: Number(updatedSubscription.price),
+				renewalDate: updatedSubscription.renewalDate,
+				category: updatedSubscription.category || "",
+			},
+		});
 		setSelectedSubscription(null);
 	};
 
 	const deleteSubscription = (id: number) => {
-		setSubscriptions(subscriptions.filter((sub) => sub.id !== id));
+		deleteSubscriptionMutation({ variables: { id } });
 		setSelectedSubscription(null);
 	};
+
+	if (loading) return <div>Loading...</div>;
+	if (error) return <div>Error loading subscriptions</div>;
 
 	return (
 		<div className='p-4 flex flex-col items-center '>
@@ -133,7 +178,7 @@ export default function SubscriptionManager() {
 			</div>
 
 			<SubscriptionList
-				subscriptions={subscriptions}
+				subscriptions={data.subscriptions}
 				setSelectedSubscription={setSelectedSubscription}
 			/>
 

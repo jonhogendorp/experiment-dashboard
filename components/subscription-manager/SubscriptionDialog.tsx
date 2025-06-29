@@ -12,13 +12,14 @@ interface SubscriptionDialogProps {
 	selectedSubscription: Subscription;
 	setSelectedSubscription: (subscription: Subscription | null) => void;
 	updateSubscription: (subscription: Subscription) => void;
-	// deleteSubscription: (id: number) => void;
+	deleteSubscription: (id: number) => void;
 }
 
 export default function SubscriptionDialog({
 	selectedSubscription,
 	setSelectedSubscription,
 	updateSubscription,
+	deleteSubscription,
 }: SubscriptionDialogProps) {
 	const [isEditMode, setIsEditMode] = useState(false);
 
@@ -132,7 +133,16 @@ export default function SubscriptionDialog({
 											</button>
 											<button
 												type='button'
-												className='bg-slate-50 border border-slate-700 border-solid text-slate-800 p-2 rounded-md shadow-sm hover:bg-slate-100 w-[48%]'
+												className='bg-red-500 text-white p-2 rounded-md shadow-sm hover:bg-red-600 w-[48%]'
+												onClick={() =>
+													deleteSubscription(selectedSubscription.id)
+												}
+											>
+												Delete
+											</button>
+											<button
+												type='button'
+												className='bg-slate-50 border border-slate-700 border-solid text-slate-800 p-2 rounded-md shadow-sm hover:bg-slate-100 w-full mt-2'
 												onClick={() => setIsEditMode(false)}
 											>
 												Cancel
