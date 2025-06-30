@@ -57,7 +57,7 @@ export default function SubscriptionDialog({
 							leaveFrom='opacity-100 scale-100'
 							leaveTo='opacity-0 scale-95'
 						>
-							<DialogPanel className='w-full p-14 max-w-md transform overflow-hidden rounded-md bg-white  text-left align-middle shadow-xl transition-all'>
+							<DialogPanel className='w-full p-14 max-w-xl max-h-xl transform overflow-hidden rounded-md bg-white  text-left align-middle shadow-xl transition-all'>
 								<DialogTitle
 									as='h3'
 									className='text-lg font-medium leading-6 text-gray-900'
@@ -121,41 +121,44 @@ export default function SubscriptionDialog({
 									)}
 								</div>
 
-								<div className='mt-4 flex justify-between'>
+								<div className='mt-4 flex gap-1.5 justify-between'>
 									{isEditMode ? (
 										<>
 											<button
 												type='button'
-												className='bg-blue-500 text-white p-2 rounded-md shadow-sm hover:bg-blue-600 w-[48%]'
+												className='bg-blue-500 text-white p-1.5 rounded-md shadow-sm hover:bg-blue-600 '
 												onClick={() => updateSubscription(selectedSubscription)}
 											>
 												Save
 											</button>
+
 											<button
 												type='button'
-												className='bg-red-500 text-white p-2 rounded-md shadow-sm hover:bg-red-600 w-[48%]'
-												onClick={() =>
-													deleteSubscription(selectedSubscription.id)
-												}
-											>
-												Delete
-											</button>
-											<button
-												type='button'
-												className='bg-slate-50 border border-slate-700 border-solid text-slate-800 p-2 rounded-md shadow-sm hover:bg-slate-100 w-full mt-2'
+												className='bg-slate-50 border border-slate-700 border-solid text-slate-800 p-1.5 rounded-md shadow-sm hover:bg-slate-100  mt-2'
 												onClick={() => setIsEditMode(false)}
 											>
 												Cancel
 											</button>
 										</>
 									) : (
-										<button
-											type='button'
-											className='bg-blue-500 text-white p-2 rounded-md shadow-sm hover:bg-blue-600 w-full'
-											onClick={() => setIsEditMode(true)}
-										>
-											Edit
-										</button>
+										<div className='flex items-center  gap-1.5 w-full'>
+											<button
+												type='button'
+												className='bg-blue-500 text-white p-1.5 rounded-md shadow-sm hover:bg-blue-600 w-full'
+												onClick={() => setIsEditMode(true)}
+											>
+												Edit
+											</button>
+											<button
+												type='button'
+												className='bg-red-500 text-white p-1.5 rounded-md shadow-sm hover:bg-red-600 w-full '
+												onClick={() =>
+													deleteSubscription(selectedSubscription.id)
+												}
+											>
+												Delete
+											</button>
+										</div>
 									)}
 								</div>
 							</DialogPanel>
