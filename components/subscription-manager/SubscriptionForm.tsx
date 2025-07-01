@@ -20,7 +20,7 @@ export default function SubscriptionForm({
 	addSubscription,
 }: SubscriptionFormProps) {
 	return (
-		<div className='mb-4'>
+		<div className='mb-4 flex flex-col items-start gap-4 p-4'>
 			<h2 className='text-lg font-semibold'>Add New Subscription</h2>
 			<input
 				type='text'
