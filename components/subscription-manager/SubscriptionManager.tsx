@@ -3,6 +3,7 @@ import { useQuery, useMutation, gql } from "@apollo/client";
 import SubscriptionList from "./SubscriptionList";
 import SubscriptionForm from "./SubscriptionForm";
 import SubscriptionDialog from "./SubscriptionDialog";
+import CategoryPicker from "./CategoryPicker";
 
 export interface Subscription {
 	id: number;
@@ -155,8 +156,14 @@ export default function SubscriptionManager() {
 				setNewSubscription={setNewSubscription}
 				addSubscription={addSubscription}
 			/>
+			<CategoryPicker
+				onSelect={(category) =>
+					setNewSubscription({ ...newSubscription, category })
+				}
+			/>
+
 			{/* category picker */}
-			<div className='my-4 border-t pt-4 w-full flex flex-col items-center'>
+			{/* <div className='my-4 border-t pt-4 w-full flex flex-col items-center'>
 				<div className='flex flex-row gap-2'>
 					<button className='px-4 py-2 rounded-full flex flex-row items-center gap-2 bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition'>
 						<div className='bg-blue-500 h-3 w-3 rounded-full'></div>
@@ -175,7 +182,7 @@ export default function SubscriptionManager() {
 						Other
 					</button>
 				</div>
-			</div>
+			</div> */}
 
 			<SubscriptionList
 				subscriptions={data.subscriptions}
