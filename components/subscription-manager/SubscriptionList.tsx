@@ -14,7 +14,7 @@ export default function SubscriptionList({
 			{subscriptions.map((sub) => (
 				<div
 					key={sub.id}
-					className='border rounded-lg shadow-md p-4 bg-white cursor-pointer hover:shadow-lg transition-shadow'
+					className='border rounded-lg shadow-md p-4 bg-slate-50 cursor-pointer hover:shadow-lg transition-shadow'
 					onClick={() => setSelectedSubscription(sub)}
 				>
 					<h3 className='text-lg font-semibold mb-2'>{sub.name}</h3>
