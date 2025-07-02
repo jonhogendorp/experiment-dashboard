@@ -104,8 +104,6 @@ export default function SubscriptionManager() {
 	const [selectedSubscription, setSelectedSubscription] =
 		useState<Subscription | null>(null);
 
-	const [isFormOpen, setIsFormOpen] = useState(false);
-
 	// Replace local addSubscription with GraphQL mutation
 	const addSubscription = () => {
 		if (
@@ -153,33 +151,13 @@ export default function SubscriptionManager() {
 		<div className='p-4 flex flex-col items-center '>
 			<h1 className='text-xl font-bold mb-4'>Subscription Manager</h1>
 
-			<button
-				className='bg-blue-500 text-white p-2 rounded-md shadow-md hover:bg-blue-600 mb-4'
-				onClick={() => setIsFormOpen(true)}
-			>
-				Add New Subscription
-			</button>
-
-			{isFormOpen && (
-				<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/15 bg-opacity-30'>
-					<div className='bg-white rounded-lg shadow-lg p-6 min-w-[350px]'>
-						<SubscriptionForm
-							newSubscription={newSubscription}
-							setNewSubscription={setNewSubscription}
-							addSubscription={() => {
-								addSubscription();
-								setIsFormOpen(false);
-							}}
-						/>
-						<button
-							className='mt-2 w-full bg-slate-200 text-slate-800 p-2 rounded-md hover:bg-slate-300'
-							onClick={() => setIsFormOpen(false)}
-						>
-							Cancel
-						</button>
-					</div>
-				</div>
-			)}
+			<SubscriptionForm
+				newSubscription={newSubscription}
+				setNewSubscription={setNewSubscription}
+				addSubscription={() => {
+					addSubscription();
+				}}
+			/>
 
 			<CategoryPicker
 				onSelect={(category) =>
