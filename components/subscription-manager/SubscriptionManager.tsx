@@ -4,6 +4,7 @@ import SubscriptionList from "./SubscriptionList";
 import SubscriptionForm from "./SubscriptionForm";
 import SubscriptionDialog from "./SubscriptionDialog";
 import CategoryPicker from "./CategoryPicker";
+import { PlusIcon } from "lucide-react";
 
 export interface Subscription {
 	id: number;
@@ -154,9 +155,10 @@ export default function SubscriptionManager() {
 			<h1 className='text-xl font-bold mb-4'>Subscription Manager</h1>
 
 			<button
-				className='bg-blue-500 text-white p-2 rounded-md shadow-md hover:bg-blue-600 mb-4'
+				className='bg-blue-500 text-white p-2 flex justify-between items-center rounded-md shadow-md hover:bg-blue-600 mb-4'
 				onClick={() => setIsFormOpen(true)}
 			>
+				<PlusIcon className='inline-block mr-2' />
 				Add New Subscription
 			</button>
 
