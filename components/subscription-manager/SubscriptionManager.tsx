@@ -120,7 +120,7 @@ export default function SubscriptionManager() {
 		addSubscriptionMutation({
 			variables: {
 				name: newSubscription.name,
-				price: Number(newSubscription.price),
+				price: parseFloat(newSubscription.price),
 				renewalDate: newSubscription.renewalDate,
 				category: newSubscription.category || "",
 			},
@@ -134,7 +134,7 @@ export default function SubscriptionManager() {
 			variables: {
 				id: updatedSubscription.id,
 				name: updatedSubscription.name,
-				price: Number(updatedSubscription.price),
+				price: parseFloat(String(updatedSubscription.price)),
 				renewalDate: updatedSubscription.renewalDate,
 				category: updatedSubscription.category || "",
 			},
