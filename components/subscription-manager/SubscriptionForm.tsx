@@ -1,3 +1,5 @@
+import { PlusIcon } from "lucide-react";
+
 interface SubscriptionFormProps {
 	newSubscription: {
 		name: string;
@@ -90,8 +92,9 @@ export default function SubscriptionForm({
 					<div className='flex flex-row gap-2 w-full'>
 						<button
 							onClick={handleAdd}
-							className='bg-blue-500 text-white py-1.5 px-5 rounded-full shadow-md hover:bg-blue-600'
+							className='bg-blue-500 text-white py-1.5 px-5 flex justify-between items-center rounded-full shadow-md hover:bg-blue-600'
 						>
+							<PlusIcon className='inline-block mr-2' />
 							Add
 						</button>
 						<button
