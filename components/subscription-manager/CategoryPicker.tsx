@@ -16,7 +16,7 @@ export default function CategoryPicker({ onSelect }: CategoryPickerProps) {
 				{categories.map((cat) => (
 					<button
 						key={cat.name}
-						className='px-4 py-2 rounded-full flex flex-row items-center gap-2 border border-solid border-slate-300 shadow-sm bg-slate-50 text-slate-700 font-semibold hover:bg-slate-200 transition'
+						className='px-4 py-2 rounded-full flex flex-row items-center gap-2 border border-solid border-slate-200 shadow-sm bg-white text-slate-700 font-semibold hover:bg-slate-100 transition'
 						onClick={() => onSelect(cat.name)}
 					>
 						<div className={`${cat.color} h-3 w-3 rounded-full`}></div>
