@@ -155,7 +155,7 @@ export default function SubscriptionManager() {
 			<h1 className='text-xl font-bold mb-4'>Subscription Manager</h1>
 
 			<button
-				className='bg-blue-500 text-white p-2 flex justify-between items-center rounded-md shadow-md hover:bg-blue-600 mb-4'
+				className='bg-blue-500 text-white px-5 py-1.5 flex justify-between items-center rounded-full shadow-md hover:bg-blue-600 mb-4'
 				onClick={() => setIsFormOpen(true)}
 			>
 				<PlusIcon className='inline-block mr-2' />

@@ -123,10 +123,10 @@ export default function SubscriptionDialog({
 
 								<div className='mt-4 flex gap-1.5 justify-between'>
 									{isEditMode ? (
-										<>
+										<div className='flex items-center justify-between gap-1.5 w-full mt-2'>
 											<button
 												type='button'
-												className='bg-blue-500 text-white p-1.5 rounded-md shadow-sm hover:bg-blue-600 '
+												className='bg-white text-blue-500 border border-blue-500 border-solid px-5 py-1.5 rounded-full shadow-sm hover:bg-blue-600 '
 												onClick={() => updateSubscription(selectedSubscription)}
 											>
 												Save
@@ -134,24 +134,24 @@ export default function SubscriptionDialog({
 
 											<button
 												type='button'
-												className='bg-slate-50 border border-slate-700 border-solid text-slate-800 p-1.5 rounded-md shadow-sm hover:bg-slate-100  mt-2'
+												className='bg-slate-50 border border-slate-700 border-solid text-slate-800 px-5 py-1.5 rounded-full shadow-sm hover:bg-slate-100 '
 												onClick={() => setIsEditMode(false)}
 											>
 												Cancel
 											</button>
-										</>
+										</div>
 									) : (
 										<div className='flex items-center  gap-1.5 w-full'>
 											<button
 												type='button'
-												className='bg-blue-500 text-white p-1.5 rounded-md shadow-sm hover:bg-blue-600 w-full'
+												className='bg-white text-blue-500 border border-blue-500 border-solid rounded-full px-5 py-1.5 shadow-sm hover:bg-blue-600 w-full'
 												onClick={() => setIsEditMode(true)}
 											>
 												Edit
 											</button>
 											<button
 												type='button'
-												className='bg-red-500 text-white p-1.5 rounded-md shadow-sm hover:bg-red-600 w-full '
+												className='bg-white text-red-500 border border-red-500 border-solid rounded-full px-5 py-1.5 hover:bg-red-600 w-full '
 												onClick={() =>
 													deleteSubscription(selectedSubscription.id)
 												}
